@@ -1,9 +1,175 @@
-<html>
-    <head>
-        <title></title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Management System</title>
 
-    <body>
-        <p>Hello World!</p>
-    </body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #d1d5db;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .api-list {
+            list-style: none;
+        }
+
+        .api-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .method {
+            display: inline-block;
+            width: 70px;
+            font-weight: bold;
+        }
+
+        .post {
+            color: #15803d;
+        }
+
+        .get {
+            color: #2563eb;
+        }
+
+        .put {
+            color: #ca8a04;
+        }
+
+        .delete {
+            color: #dc2626;
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Contact Management System</h1>
+        <p>Node.js • Express.js • MongoDB • Mongoose</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Welcome</h2>
+            <p>
+                This Contact Management System provides CRUD operations
+                for managing contact information.
+            </p>
+
+            <div class="status">
+                ✓ API is running successfully
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Available API Endpoints</h2>
+
+            <ul class="api-list">
+                <li>
+                    <span class="method post">POST</span>
+                    /contacts
+                </li>
+
+                <li>
+                    <span class="method get">GET</span>
+                    /contacts
+                </li>
+
+                <li>
+                    <span class="method get">GET</span>
+                    /contacts/:id
+                </li>
+
+                <li>
+                    <span class="method put">PUT</span>
+                    /contacts/:id
+                </li>
+
+                <li>
+                    <span class="method delete">DELETE</span>
+                    /contacts/:id
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Contact Validation</h2>
+
+            <ul>
+                <li>Unique Contact ID</li>
+                <li>Name is required</li>
+                <li>Phone number must contain 10 digits</li>
+                <li>Email must be valid and unique</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        Contact Management System © 2026
+    </footer>
+
+</body>
 </html>
