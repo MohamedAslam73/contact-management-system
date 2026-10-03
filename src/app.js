@@ -10,6 +10,11 @@ const app = express();
 
 app.use(express.json());
 
+// Home route
+app.get("/", (req, res) => {
+    res.send("Contact Management System API is running");
+});
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
