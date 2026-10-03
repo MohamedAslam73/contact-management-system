@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 
 const Contact = require("./models/Contact");
 
@@ -10,9 +11,9 @@ const app = express();
 
 app.use(express.json());
 
-// Home route
+// Home Route
 app.get("/", (req, res) => {
-    res.send("Contact Management System API is running");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // MongoDB Connection
@@ -20,27 +21,31 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log("MongoDB Error:", err.message));
 
-// CREATE
+// CREATE - Add a new contact
 app.post("/contacts", async (req, res) => {
     try {
         const contact = await Contact.create(req.body);
         res.status(201).json(contact);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+            message: error.message
+        });
     }
 });
 
-// READ ALL
+// READ - Get all contacts
 app.get("/contacts", async (req, res) => {
     try {
         const contacts = await Contact.find();
         res.json(contacts);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+            message: error.message
+        });
     }
 });
 
-// READ ONE
+// READ - Get contact by ID
 app.get("/contacts/:id", async (req, res) => {
     try {
         const contact = await Contact.findOne({
@@ -55,17 +60,22 @@ app.get("/contacts/:id", async (req, res) => {
 
         res.json(contact);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+            message: error.message
+        });
     }
 });
 
-// UPDATE
+// UPDATE - Update contact
 app.put("/contacts/:id", async (req, res) => {
     try {
         const contact = await Contact.findOneAndUpdate(
             { contactId: req.params.id },
             req.body,
-            { new: true, runValidators: true }
+            {
+                new: true,
+                runValidators: true
+            }
         );
 
         if (!contact) {
@@ -76,11 +86,13 @@ app.put("/contacts/:id", async (req, res) => {
 
         res.json(contact);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+            message: error.message
+        });
     }
 });
 
-// DELETE
+// DELETE - Delete contact
 app.delete("/contacts/:id", async (req, res) => {
     try {
         const contact = await Contact.findOneAndDelete({
@@ -97,10 +109,13 @@ app.delete("/contacts/:id", async (req, res) => {
             message: "Contact deleted successfully"
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+            message: error.message
+        });
     }
 });
 
+// Start Server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
