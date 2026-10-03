@@ -3,173 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Contact Management System</title>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
             font-family: Arial, sans-serif;
             background: #f4f7fb;
-            color: #222;
+            margin: 0;
+            color: #1f2937;
         }
 
         header {
             background: #1f2937;
             color: white;
-            padding: 25px;
             text-align: center;
+            padding: 30px 20px;
         }
 
         header h1 {
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: #d1d5db;
+            margin: 0 0 10px;
         }
 
         .container {
             max-width: 1000px;
-            margin: 40px auto;
+            margin: 30px auto;
             padding: 20px;
         }
 
         .card {
             background: white;
             padding: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
         }
 
         h2 {
-            margin-bottom: 15px;
+            margin-top: 0;
             color: #1f2937;
         }
 
-        .api-list {
-            list-style: none;
-        }
-
-        .api-list li {
+        input {
+            width: 100%;
             padding: 12px;
             margin: 8px 0;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px 5px 5px 0;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            background: #16a34a;
+            color: white;
+        }
+
+        .view-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .update-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #e0f2fe;
+        }
+
+        .contact {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .contact p {
+            margin: 5px 0;
+        }
+
+        .endpoint {
+            padding: 10px;
+            margin: 5px 0;
             background: #f3f4f6;
             border-radius: 6px;
-        }
-
-        .method {
-            display: inline-block;
-            width: 70px;
-            font-weight: bold;
-        }
-
-        .post {
-            color: #15803d;
-        }
-
-        .get {
-            color: #2563eb;
-        }
-
-        .put {
-            color: #ca8a04;
-        }
-
-        .delete {
-            color: #dc2626;
-        }
-
-        .status {
-            text-align: center;
-            padding: 15px;
-            background: #dcfce7;
-            color: #166534;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #6b7280;
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Contact Management System</h1>
-        <p>Node.js • Express.js • MongoDB • Mongoose</p>
-    </header>
+<header>
+    <h1>Contact Management System</h1>
+    <p>Node.js • Express.js • MongoDB • Mongoose</p>
+</header>
 
-    <div class="container">
+<div class="container">
 
-        <div class="card">
-            <h2>Welcome</h2>
-            <p>
-                This Contact Management System provides CRUD operations
-                for managing contact information.
-            </p>
+    <!-- Add Contact -->
+    <div class="card">
+        <h2>➕ Add Contact</h2>
 
-            <div class="status">
-                ✓ API is running successfully
-            </div>
-        </div>
+        <input type="text" id="contactId" placeholder="Contact ID (Example: C001)">
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="phone" placeholder="Phone Number (10 digits)">
+        <input type="email" id="email" placeholder="Email">
 
-        <div class="card">
-            <h2>Available API Endpoints</h2>
-
-            <ul class="api-list">
-                <li>
-                    <span class="method post">POST</span>
-                    /contacts
-                </li>
-
-                <li>
-                    <span class="method get">GET</span>
-                    /contacts
-                </li>
-
-                <li>
-                    <span class="method get">GET</span>
-                    /contacts/:id
-                </li>
-
-                <li>
-                    <span class="method put">PUT</span>
-                    /contacts/:id
-                </li>
-
-                <li>
-                    <span class="method delete">DELETE</span>
-                    /contacts/:id
-                </li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Contact Validation</h2>
-
-            <ul>
-                <li>Unique Contact ID</li>
-                <li>Name is required</li>
-                <li>Phone number must contain 10 digits</li>
-                <li>Email must be valid and unique</li>
-            </ul>
-        </div>
-
+        <button class="add-btn" onclick="addContact()">Add Contact</button>
     </div>
 
-    <footer>
-        Contact Management System © 2026
-    </footer>
+    <!-- Search Contact -->
+    <div class="card">
+        <h2>🔍 Find Contact</h2>
+
+        <input type="text" id="searchId" placeholder="Enter Contact ID">
+
+        <button class="view-btn" onclick="getContact()">Find Contact</button>
+    </div>
+
+    <!-- Update Contact -->
+    <div class="card">
+        <h2>✏️ Update Contact</h2>
+
+        <input type="text" id="updateId" placeholder="Contact ID">
+        <input type="text" id="updateName" placeholder="New Name">
+        <input type="text" id="updatePhone" placeholder="New Phone Number">
+        <input type="email" id="updateEmail" placeholder="New Email">
+
+        <button class="update-btn" onclick="updateContact()">Update Contact</button>
+    </div>
+
+    <!-- Delete Contact -->
+    <div class="card">
+        <h2>🗑️ Delete Contact</h2>
+
+        <input type="text" id="deleteId" placeholder="Contact ID">
+
+        <button class="delete-btn" onclick="deleteContact()">Delete Contact</button>
+    </div>
+
+    <!-- View All -->
+    <div class="card">
+        <h2>📋 All Contacts</h2>
+
+        <button class="view-btn" onclick="getAllContacts()">View All Contacts</button>
+
+        <div id="contacts"></div>
+    </div>
+
+    <!-- Message -->
+    <div class="card">
+        <h2>Response</h2>
+        <div id="message" class="message">
+            Ready to manage contacts.
+        </div>
+    </div>
+
+    <!-- API Endpoints -->
+    <div class="card">
+        <h2>Available API Endpoints</h2>
+
+        <div class="endpoint"><b>POST</b> /contacts</div>
+        <div class="endpoint"><b>GET</b> /contacts</div>
+        <div class="endpoint"><b>GET</b> /contacts/:id</div>
+        <div class="endpoint"><b>PUT</b> /contacts/:id</div>
+        <div class="endpoint"><b>DELETE</b> /contacts/:id</div>
+    </div>
+
+</div>
+
+<script>
+
+    // Add Contact
+    async function addContact() {
+
+        const contact = {
+            contactId: document.getElementById("contactId").value,
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value
+        };
+
+        try {
+
+            const response = await fetch("/contacts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contact)
+            });
+
+            const data = await response.json();
+
+            document.getElementById("message").innerText =
+                response.ok
+                ? "Contact added successfully!"
+                : data.message;
+
+            if (response.ok) {
+                document.getElementById("contactId").value = "";
+                document.getElementById("name").value = "";
+                document.getElementById("phone").value = "";
+                document.getElementById("email").value = "";
+            }
+
+        } catch (error) {
+            document.getElementById("message").innerText = error.message;
+        }
+    }
+
+
+    // Get All Contacts
+    async function getAllContacts() {
+
+        try {
+
+            const response = await fetch("/contacts");
+            const contacts = await response.json();
+
+            const container = document.getElementById("contacts");
+
+            container.innerHTML = "";
+
+            if (contacts.length === 0) {
+                container.innerHTML = "<p>No contacts found.</p>";
+                return;
+            }
+
+            contacts.forEach(contact => {
+
+                container.innerHTML += `
+                    <div class="contact">
+                        <p><b>Contact ID:</b> ${contact.contactId}</p>
+                        <p><b>Name:</b> ${contact.name}</p>
+                        <p><b>Phone:</b> ${contact.phone}</p>
+                        <p><b>Email:</b> ${contact.email}</p>
+                    </div>
+                `;
+            });
+
+        } catch (error) {
+            document.getElementById("message").innerText = error.message;
+        }
+    }
+
+
+    // Get One Contact
+    async function getContact() {
+
+        const id = document.getElementById("searchId").value;
+
+        if (!id) {
+            document.getElementById("message").innerText =
+                "Please enter a Contact ID.";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(`/contacts/${id}`);
+            const data = await response.json();
+
+            if (response.ok) {
+
+                document.getElementById("message").innerHTML = `
+                    <b>Contact Found</b><br>
+                    ID: ${data.contactId}<br>
+                    Name: ${data.name}<br>
+                    Phone: ${data.phone}<br>
+                    Email: ${data.email}
+                `;
+
+            } else {
+
+                document.getElementById("message").innerText =
+                    data.message;
+            }
+
+        } catch (error) {
+            document.getElementById("message").innerText = error.message;
+        }
+    }
+
+
+    // Update Contact
+    async function updateContact() {
+
+        const id = document.getElementById("updateId").value;
+
+        const updatedContact = {
+            name: document.getElementById("updateName").value,
+            phone: document.getElementById("updatePhone").value,
+            email: document.getElementById("updateEmail").value
+        };
+
+        if (!id) {
+            document.getElementById("message").innerText =
+                "Please enter a Contact ID.";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(`/contacts/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedContact)
+            });
+
+            const data = await response.json();
+
+            document.getElementById("message").innerText =
+                response.ok
+                ? "Contact updated successfully!"
+                : data.message;
+
+        } catch (error) {
+            document.getElementById("message").innerText = error.message;
+        }
+    }
+
+
+    // Delete Contact
+    async function deleteContact() {
+
+        const id = document.getElementById("deleteId").value;
+
+        if (!id) {
+            document.getElementById("message").innerText =
+                "Please enter a Contact ID.";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(`/contacts/${id}`, {
+                method: "DELETE"
+            });
+
+            const data = await response.json();
+
+            document.getElementById("message").innerText =
+                response.ok
+                ? "Contact deleted successfully!"
+                : data.message;
+
+        } catch (error) {
+            document.getElementById("message").innerText = error.message;
+        }
+    }
+
+</script>
 
 </body>
 </html>
